@@ -300,16 +300,16 @@ export const updatePasswords = async (req, res) => {
 };
 
 export const getAdmin = async (req, res) => {
-  const { sessionId } = req.params; // Extract sessionId from the URL parameters
+  // const { sessionId } = req.params; // Extract sessionId from the URL parameters
 
   try {
     // Convert the sessionId to an ObjectId if necessary (depending on how it's stored in the database)
-    const sessionObjectId = mongoose.Types.ObjectId(sessionId);
+    // const sessionObjectId = mongoose.Types.ObjectId(sessionId);
 
     // Fetch admins for the specified session
     const admins = await User.find({
       role: "admin",
-      session: sessionObjectId, // Match session as an ObjectId
+      // session: sessionObjectId, // Match session as an ObjectId
     })
       .select("username email address phone _id") // Select the fields you want
       .exec();

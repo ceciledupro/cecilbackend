@@ -47,7 +47,6 @@ const s3 = new S3({
 
 const corsOptions = {
   origin: [
-    "http://localhost:3001",
     "http://localhost:3000",
     "https://rarebuild.vercel.app",
     "http://localhost:5173",
@@ -89,7 +88,7 @@ const authRoutes = [
   { method: "get", path: "/teachers/:id", middleware: authenticateUser },
   {
     method: "get",
-    path: "/get-session-admin/:sessionId",
+    path: "/get-session-admin",
     middleware: authenticateUser,
   },
   { method: "put", path: "/students/:id", middleware: authenticateUser },
