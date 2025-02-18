@@ -27,6 +27,7 @@ import {
   getStudentByIdBySession,
   updatePasswords,
   getAllSessions,
+  deleteAdmin,
 } from "../controller/authController.js";
 import {
   createDownload,
@@ -114,6 +115,7 @@ const commonRoute = (s3, authRoutes = []) => {
     "/session/:sessionId/users/:userId",
     deleteUserFromSpecificSession
   );
+  router.delete("/admin/:userId", deleteAdmin); // New route for deleting an admin
 
   // Adjust the following routes to ensure they work with your S3 setup
   router.post("/setting", upload.single("signature"), createSetting);

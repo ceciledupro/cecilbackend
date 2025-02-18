@@ -571,6 +571,36 @@ export const deleteUserFromSpecificSession = async (req, res) => {
       .json({ error: "Error removing session", details: error.message });
   }
 };
+// In your controller file
+export const deleteAdmin = async (req, res) => {
+  const { userId } = req.params;
+
+  try {
+    // Find the user by ID
+    const user = await User.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    // Ensure that the user to be deleted is an admin
+    if (user.role !== "admin") {
+      return res
+        .status(400)
+        .json({ error: "This endpoint only deletes admins" });
+    }
+
+    // Delete the admin user
+    await User.findByIdAndDelete(userId);
+
+    return res.status(200).json({ message: "Admin deleted successfully" });
+  } catch (error) {
+    console.error("Error deleting admin:", error);
+    return res
+      .status(500)
+      .json({ error: "Error deleting admin", details: error.message });
+  }
+};
 
 export const createSetting = async (req, res) => {
   try {
