@@ -47,7 +47,7 @@ const s3 = new S3({
 
 const corsOptions = {
   origin: [
-    "http://localhost:3002",
+    "http://localhost:3000",
     "https://rarebuild.vercel.app",
     "http://localhost:5173",
     "https://rarebuildadmin.vercel.app",
