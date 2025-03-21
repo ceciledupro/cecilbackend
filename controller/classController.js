@@ -20,16 +20,41 @@ import mongoose from "mongoose";
 //     res.status(500).json(err);
 //   }
 // };
+// export const createClass = async (req, res) => {
+//   try {
+//     // Fetch the latest class to determine the next classId
+//     const latestClass = await Class.findOne({}, {}, { sort: { classId: -1 } });
+//     const nextClassId = (latestClass && latestClass.classId + 1) || 1;
+
+//     // Create a new class with the provided data and session
+//     const newClass = new Class({
+//       classId: nextClassId,
+//       name: req.body.name,
+//       teacher: req.body.teacher,
+//       students: [], // Initialize an empty array for students
+//       session: req.body.session, // Add the session field
+//     });
+
+//     // Save the new class to the database
+//     const savedClass = await newClass.save();
+//     res.status(200).json(savedClass);
+//   } catch (err) {
+//     res.status(500).json({ error: "Failed to create class" });
+//   }
+// };
 export const createClass = async (req, res) => {
   try {
     // Fetch the latest class to determine the next classId
     const latestClass = await Class.findOne({}, {}, { sort: { classId: -1 } });
     const nextClassId = (latestClass && latestClass.classId + 1) || 1;
 
-    // Create a new class with the provided data and session
+    // Normalize the class name by removing spaces
+    const formattedName = req.body.name.replace(/\s+/g, ""); // Remove all spaces
+
+    // Create a new class with the formatted name
     const newClass = new Class({
       classId: nextClassId,
-      name: req.body.name,
+      name: formattedName,
       teacher: req.body.teacher,
       students: [], // Initialize an empty array for students
       session: req.body.session, // Add the session field

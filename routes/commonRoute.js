@@ -28,6 +28,7 @@ import {
   updatePasswords,
   getAllSessions,
   deleteAdmin,
+  getChildren,
 } from "../controller/authController.js";
 import {
   createDownload,
@@ -81,6 +82,7 @@ const commonRoute = (s3, authRoutes = []) => {
   router.post("/register", register);
   router.post("/login", login);
   router.get("/users/:role/:sessionId", getUserByRole);
+  router.get("/parent/children", authenticateUser, getChildren);
 
   router.post(
     "/addSessionToUsersWithoutSession",

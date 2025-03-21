@@ -265,7 +265,27 @@ export const login = async (req, res) => {
     return res.status(500).json({ error: "Login failed" });
   }
 };
+export const getChildren = async (req, res) => {
+  try {
+    const parentId = req.user._id; // Extract the logged-in parent's ID from JWT
+    const parent = await User.findById(parentId);
 
+    if (!parent || parent.role !== "parent") {
+      return res.status(403).json({ error: "Unauthorized access" });
+    }
+
+    // Fetch all students who have this parent's username (or another unique identifier)
+    const children = await User.find({
+      role: "student",
+      parentsName: parent.username, // Matching parent's username with the stored parentsName field
+    });
+
+    return res.status(200).json({ children });
+  } catch (error) {
+    console.error("Error fetching children:", error);
+    return res.status(500).json({ error: "Failed to fetch children" });
+  }
+};
 export const updatePasswords = async (req, res) => {
   try {
     // Find all users with empty passwords
