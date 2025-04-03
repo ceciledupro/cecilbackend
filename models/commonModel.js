@@ -48,9 +48,7 @@ const userSchema = new mongoose.Schema(
     parentName: {
       type: String,
     },
-    birthday: {
-      type: Date,
-    },
+
     contactNo: {
       type: String,
     },

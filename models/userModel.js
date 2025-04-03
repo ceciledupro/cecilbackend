@@ -53,6 +53,9 @@ const userSchema = new mongoose.Schema(
     gender: {
       type: String,
     },
+    birthday: {
+      type: Date,
+    },
 
     session: [{ type: mongoose.Schema.Types.ObjectId, ref: "Session" }],
   },
